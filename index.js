@@ -32,13 +32,19 @@ const isRegion = isLayer.bind(null, 'region');
 const isMacroCounty = isLayer.bind(null, 'macrocounty');
 const isCounty = isLayer.bind(null, 'county');
 const isLocality = isLayer.bind(null, 'locality');
+const isLocaladmin = isLayer.bind(null, 'localadmin');
 const isBorough = isLayer.bind(null, 'borough');
 const isNeighbourhood = isLayer.bind(null, 'neighbourhood');
 
-const isMegaCity = isLayerAndValueInRange.bind(null, isLocality, 'population', populations.mega);
-const isLargeCity = isLayerAndValueInRange.bind(null, isLocality, 'population', populations.large);
-const isMediumCity = isLayerAndValueInRange.bind(null, isLocality, 'population', populations.medium);
-const isSmallCity = isLayerAndValueInRange.bind(null, isLocality, 'population', populations.small);
+const isMegaLocality = isLayerAndValueInRange.bind(null, isLocality, 'population', populations.mega);
+const isLargeLocality = isLayerAndValueInRange.bind(null, isLocality, 'population', populations.large);
+const isMediumLocality = isLayerAndValueInRange.bind(null, isLocality, 'population', populations.medium);
+const isSmallLocality = isLayerAndValueInRange.bind(null, isLocality, 'population', populations.small);
+
+const isMegaLocaladmin = isLayerAndValueInRange.bind(null, isLocaladmin, 'population', populations.mega);
+const isLargeLocaladmin = isLayerAndValueInRange.bind(null, isLocaladmin, 'population', populations.large);
+const isMediumLocaladmin = isLayerAndValueInRange.bind(null, isLocaladmin, 'population', populations.medium);
+const isSmallLocaladmin = isLayerAndValueInRange.bind(null, isLocaladmin, 'population', populations.small);
 
 const isPopularNeighbourhood = isLayerAndValueInRange.bind(null, isNeighbourhood, 'popularity', popularities.popular);
 const isNonPopularNeighbourhood = isLayerAndValueInRange.bind(null, isNeighbourhood, 'popularity', popularities.nonpopular);
@@ -83,7 +89,8 @@ function resolveByFocusPointThenOtherField(isLayer, field, result1, result2, foc
 
 }
 
-const resolveMegaCity = resolveByPopulation.bind(null, isMegaCity);
+const resolveMegaLocality = resolveByPopulation.bind(null, isMegaLocality);
+const resolveMegaLocaladmin = resolveByPopulation.bind(null, isMegaLocaladmin);
 const resolveContinent = resolveByPopulation.bind(null, isContinent);
 const resolveCountry = resolveByPopulation.bind(null, isCountry);
 const resolveDependency = resolveByPopulation.bind(null, isDependency);
@@ -93,9 +100,13 @@ const resolveMacroCounty = resolveByPopulation.bind(null, isMacroCounty);
 const resolveCounty = resolveByPopulation.bind(null, isCounty);
 const resolveBorough = resolveByPopulation.bind(null, isBorough);
 
-const resolveLargeCity = resolveByFocusPointThenOtherField.bind(null, isLargeCity, 'population');
-const resolveMediumCity = resolveByFocusPointThenOtherField.bind(null, isMediumCity, 'population');
-const resolveSmallCity = resolveByFocusPointThenOtherField.bind(null, isSmallCity, 'population');
+const resolveLargeLocality = resolveByFocusPointThenOtherField.bind(null, isLargeLocality, 'population');
+const resolveMediumLocality = resolveByFocusPointThenOtherField.bind(null, isMediumLocality, 'population');
+const resolveSmallLocality = resolveByFocusPointThenOtherField.bind(null, isSmallLocality, 'population');
+
+const resolveLargeLocaladmin = resolveByFocusPointThenOtherField.bind(null, isLargeLocaladmin, 'population');
+const resolveMediumLocaladmin = resolveByFocusPointThenOtherField.bind(null, isMediumLocaladmin, 'population');
+const resolveSmallLocaladmin = resolveByFocusPointThenOtherField.bind(null, isSmallLocaladmin, 'population');
 
 const resolvePopularNeighbourhood = resolveByFocusPointThenOtherField.bind(null, isPopularNeighbourhood, 'popularity');
 const resolveNonPopularNeighbourhood = resolveByFocusPointThenOtherField.bind(null, isNonPopularNeighbourhood, 'popularity');
@@ -109,30 +120,35 @@ function parse_lat_lon(obj, lat_field, lon_field) {
 
 // array of either/resolve functions to call in order
 const fallbacks = [
-  { either: isMegaCity, resolve: resolveMegaCity },
+  { either: isMegaLocality, resolve: resolveMegaLocality },
+  { either: isMegaLocaladmin, resolve: resolveMegaLocaladmin },
   { either: isContinent, resolve: resolveContinent },
   { either: isCountry, resolve: resolveCountry },
   { either: isDependency, resolve: resolveDependency },
-  { either: isLargeCity, resolve: resolveLargeCity },
+  { either: isLargeLocality, resolve: resolveLargeLocality },
+  { either: isLargeLocaladmin, resolve: resolveLargeLocaladmin },
   { either: isMacroRegion, resolve: resolveMacroRegion },
   { either: isRegion, resolve: resolveRegion },
   { either: isMacroCounty, resolve: resolveMacroCounty },
   { either: isBorough, resolve: resolveBorough },
-  { either: isMediumCity, resolve: resolveMediumCity },
+  { either: isMediumLocality, resolve: resolveMediumLocality },
+  { either: isMediumLocaladmin, resolve: resolveMediumLocaladmin },
   { either: isCounty, resolve: resolveCounty },
   { either: isPopularNeighbourhood, resolve: resolvePopularNeighbourhood },
-  { either: isSmallCity, resolve: resolveSmallCity },
+  { either: isSmallLocality, resolve: resolveSmallLocality },
+  { either: isSmallLocaladmin, resolve: resolveSmallLocaladmin },
   { either: isNonPopularNeighbourhood, resolve: resolveNonPopularNeighbourhood },
   // the 'else' case, always returns true
   { either: _.constant(true), resolve: (result1, result2) => { return result1 < result2; } }
 ];
 
 module.exports = (clean) => {
+  // get the focus.point from the request, could be undefined
   const focus_point = parse_lat_lon(clean, 'focus.point.lat', 'focus.point.lon');
 
   return (result1, result2) => {
     // find the first `either` that matches either result1 or result2
-    const layer = _.find(fallbacks, (layer) => {
+    const layer = fallbacks.find((layer) => {
       return [result1, result2].some(layer.either);
     });
 

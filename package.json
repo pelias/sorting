@@ -2,28 +2,29 @@
   "name": "pelias-sorting",
   "description": "Utility module that sorts Pelias results",
   "main": "index.js",
-  "engines": {
-    "node": ">=4.0.0"
-  },
-  "version": "1.0.0",
+  "version": "0.0.0-semantic-release",
   "scripts": {
     "test": "node test/index | tap-dot",
     "lint": "jshint .",
-    "travis": "npm test",
+    "travis": "npm run check-dependencies && npm test",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post",
-    "validate": "npm ls"
+    "validate": "npm ls",
+    "check-dependencies": "node_modules/.bin/npm-check --production"
   },
   "author": "Mapzen",
   "license": "MIT",
+  "engines": {
+    "node": ">=4.0.0"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/pelias/sorting.git"
   },
   "dependencies": {
+    "geolib": "^2.0.22",
     "lodash": "^4.17.4"
   },
   "devDependencies": {
-    "difflet": "^1.0.1",
     "jshint": "^2.8.0",
     "precommit-hook": "^3.0.0",
     "tap-dot": "^1.0.5",
@@ -33,6 +34,7 @@
   "pre-commit": [
     "lint",
     "validate",
-    "test"
+    "test",
+    "check-dependencies"
   ]
 }
