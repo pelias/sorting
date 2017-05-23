@@ -27,7 +27,7 @@ const ResultBuilder = function(layer) {
     build: function() {
       return result;
     }
-  }
+  };
 
 };
 
@@ -62,9 +62,9 @@ tape('equality tests', (test) => {
   test.test('all results should be equal to themselves', (t) => {
     const sorter = require('../index')();
 
-    [mega_city, country, dependency, macroregion, region, macrocounty, county, medium_city, /*small_city*/].forEach((result) => {
+    [mega_city, country, dependency, macroregion, region, macrocounty, county, medium_city, small_city].forEach((result) => {
       t.equals(sorter(result, result), 0);
-    })
+    });
 
     t.end();
 
@@ -79,7 +79,7 @@ tape('mega_city', (test) => {
     [country, dependency, macroregion, region, macrocounty, county, medium_city, small_city].forEach((non_mega_city) => {
       t.ok(sorter(mega_city, non_mega_city) < 0);
       t.ok(sorter(non_mega_city, mega_city) > 0);
-    })
+    });
 
     t.end();
 
@@ -99,8 +99,47 @@ tape('mega_city', (test) => {
 
 });
 
+tape('continents', (test) => {
+  test.test('continent should outrank everything else except mega_city', (t) => {
+    const sorter = require('../index')();
+
+    [dependency, macroregion, region, macrocounty, county, medium_city, small_city].forEach((non_country) => {
+      t.ok(sorter(country, non_country) < 0);
+      t.ok(sorter(non_country, country) > 0);
+    });
+    t.end();
+
+  });
+
+  // this will never happen but it's for completeness
+  test.test('continents compared should rank by population descending', (t) => {
+    const higher_population_continent = new ResultBuilder('continent').population(2).build();
+    const lower_population_continent = new ResultBuilder('continent').population(1).build();
+
+    const sorter = require('../index')();
+
+    t.ok(sorter(higher_population_continent, lower_population_continent) < 0);
+    t.ok(sorter(lower_population_continent, higher_population_continent) > 0);
+    t.end();
+
+  });
+
+  test.test('continents w/o population should treat as equal to 0', (t) => {
+    const with_population_continent = new ResultBuilder('continent').population(1).build();
+    const no_population_continent = new ResultBuilder('continent').build();
+
+    const sorter = require('../index')();
+
+    t.ok(sorter(with_population_continent, no_population_continent) < 0);
+    t.ok(sorter(no_population_continent, with_population_continent) > 0);
+    t.end();
+
+  });
+
+});
+
 tape('countries', (test) => {
-  test.test('country should outrank everything else except mega_city', (t) => {
+  test.test('country should outrank everything else except mega_city and continent', (t) => {
     const sorter = require('../index')();
 
     [dependency, macroregion, region, macrocounty, county, medium_city, small_city].forEach((non_country) => {
