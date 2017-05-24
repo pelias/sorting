@@ -39,8 +39,8 @@ Without additional information such as state to narrow down this list, Pelias so
   - population > 4,000,000
   - "Paris" should always rank [Paris, France](https://whosonfirst.mapzen.com/spelunker/id/101751119) higher than [Paris, Texas](https://whosonfirst.mapzen.com/spelunker/id/101725293) since people looking for the latter will supply additional qualifiers such as state or country.
   - Examples:
-    -- [New York City, NY](https://whosonfirst.mapzen.com/spelunker/id/85977539)
-    -- [Saint Petersburg, Russia](https://whosonfirst.mapzen.com/spelunker/id/102008123)
+    1. [New York City, NY](https://whosonfirst.mapzen.com/spelunker/id/85977539)
+    2. [Saint Petersburg, Russia](https://whosonfirst.mapzen.com/spelunker/id/102008123)
 2.  continent
   - Continent names are so well known that users looking for some more granular are accustomed to adding additional qualifiers.
   - Examples:
