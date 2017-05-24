@@ -25,7 +25,7 @@ The `pelias-sorting` npm module can be found here:
 
 ## Resolving ambiguities
 
-The list presented here is used to resolve ambiguities in Pelias.  For example, there's only one place named [Truth or Consequences](https://whosonfirst.mapzen.com/spelunker/id/85976585) so there are no ambiguities to sort.  Similarly, "Saint Petersburg, Russia" is fully-qualified and unambiguous.  However, "Lancaster" can be interpreted as any of:
+The list presented here is used to resolve ambiguities in Pelias.  For example, there's only one place named [Truth or Consequences](https://whosonfirst.mapzen.com/spelunker/id/85976585) so there are no ambiguities to sort.  Similarly, [Saint Petersburg, Russia](https://whosonfirst.mapzen.com/spelunker/id/102008123) is fully-qualified and unambiguous.  However, "Lancaster" can be interpreted as any of:
 
 - 2 neighbourhoods
 - 13 cities (in 2 countries)
@@ -37,10 +37,10 @@ Without additional information such as state to narrow down this list, Pelias so
 
 1.  very large city
   - population > 4,000,000
-  - `Paris` should always rank [Paris, France](https://whosonfirst.mapzen.com/spelunker/id/101751119) higher than [Paris, Texas](https://whosonfirst.mapzen.com/spelunker/id/101725293) since people looking for the latter will supply additional qualifiers such as state or country.
+  - "Paris" should always rank [Paris, France](https://whosonfirst.mapzen.com/spelunker/id/101751119) higher than [Paris, Texas](https://whosonfirst.mapzen.com/spelunker/id/101725293) since people looking for the latter will supply additional qualifiers such as state or country.
   - Examples:
-    -- [New York City](https://whosonfirst.mapzen.com/spelunker/id/85977539)
-    -- [Bangkok](https://whosonfirst.mapzen.com/spelunker/id/102025263)
+    -- [New York City, NY](https://whosonfirst.mapzen.com/spelunker/id/85977539)
+    -- [Saint Petersburg, Russia](https://whosonfirst.mapzen.com/spelunker/id/102008123)
 2.  continent
   - Continent names are so well known that users looking for some more granular are accustomed to adding additional qualifiers.
   - Examples:
