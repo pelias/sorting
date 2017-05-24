@@ -108,4 +108,4 @@ Without additional information such as state to narrow down this list, Pelias so
     - [The Flats, Wilmington, DE](https://whosonfirst.mapzen.com/spelunker/id/85888525)
     - [Dagenham Heathway, London, GB](https://whosonfirst.mapzen.com/spelunker/id/85860857)
 
-* Regarding neighbourhoods, Pelias makes no qualitative stance on what the term "popularity" means.  
+**Regarding neighbourhoods, Pelias makes no qualitative stance on what the term "popularity" means.**
