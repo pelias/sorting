@@ -44,68 +44,68 @@ Without additional information such as state to narrow down this list, Pelias so
 2.  continent
   - Continent names are so well known that users looking for some more granular are accustomed to adding additional qualifiers.
   - Examples:
-    -- [Asia](https://whosonfirst.mapzen.com/spelunker/id/102191569)
-    -- [Antarctica](https://whosonfirst.mapzen.com/spelunker/id/102191579)
+    1. [Asia](https://whosonfirst.mapzen.com/spelunker/id/102191569)
+    2. [Antarctica](https://whosonfirst.mapzen.com/spelunker/id/102191579)
 3.  country
   - These names are so well known that users looking for some more granular are accustomed to adding additional qualifiers.  For example, Luxembourg the country contains a city named [Luxembourg](https://whosonfirst.mapzen.com/spelunker/id/101751765) but users entering `Luxembourg` without additional qualification are normally looking for the country.
   - Examples:
-    -- [Canada](https://whosonfirst.mapzen.com/spelunker/id/85633041)
-    -- [Laos](https://whosonfirst.mapzen.com/spelunker/id/85632241)
+    1. [Canada](https://whosonfirst.mapzen.com/spelunker/id/85633041)
+    2. [Laos](https://whosonfirst.mapzen.com/spelunker/id/85632241)
 4.  [dependency](https://github.com/whosonfirst/whosonfirst-placetypes#dependency)
   - These names are so well known that users looking for some more granular are accustomed to adding additional qualifiers
   - Examples:
-    -- [Puerto Rico](https://whosonfirst.mapzen.com/spelunker/id/85633729)
-    -- [Gibraltar](https://whosonfirst.mapzen.com/spelunker/id/85633167)
+    1. [Puerto Rico](https://whosonfirst.mapzen.com/spelunker/id/85633729)
+    2. [Gibraltar](https://whosonfirst.mapzen.com/spelunker/id/85633167)
 5.  large city
   - population between 500,000 and 4,000,000
   - Ties among mid-size cities are broken by preferring those closer to `focus.point` or greater population if not supplied.
   - Examples:
-    -- [San Francisco, California](https://whosonfirst.mapzen.com/spelunker/id/85922583)
-    -- [Marseilles, France](https://whosonfirst.mapzen.com/spelunker/id/101749199)
+    1. [San Francisco, California](https://whosonfirst.mapzen.com/spelunker/id/85922583)
+    2. [Marseilles, France](https://whosonfirst.mapzen.com/spelunker/id/101749199)
 6.  [macroregion](https://github.com/whosonfirst/whosonfirst-placetypes#macroregion)
   - Macroregions are considered groups of regions.  While this classification is limited to Europe, an unofficial colloquial United States analog would be New England, which contains [Connecticut](), [Maine](https://whosonfirst.mapzen.com/spelunker/id/85688769/), [Massachusetts](https://whosonfirst.mapzen.com/spelunker/id/85688645/), [New Hampshire](https://whosonfirst.mapzen.com/spelunker/id/85688689/), [Rhode Island](https://whosonfirst.mapzen.com/spelunker/id/85688509/), and [Vermont](https://whosonfirst.mapzen.com/spelunker/id/85688763/).  
   - Examples:
-    -- [Sardinia, Italy](https://whosonfirst.mapzen.com/spelunker/id/404227535)
-    -- [Andalusia, Spain](https://whosonfirst.mapzen.com/spelunker/id/404227361)
+    1. [Sardinia, Italy](https://whosonfirst.mapzen.com/spelunker/id/404227535)
+    2. [Andalusia, Spain](https://whosonfirst.mapzen.com/spelunker/id/404227361)
 7.  region
   - These are "states" in the United States and "provinces" in Canada.  
   - Examples:
-    -- [New Mexico, USA](https://whosonfirst.mapzen.com/spelunker/id/85688493)
-    -- [British Columbia, Canada](https://whosonfirst.mapzen.com/spelunker/id/85682117)
+    1. [New Mexico, USA](https://whosonfirst.mapzen.com/spelunker/id/85688493)
+    2. [British Columbia, Canada](https://whosonfirst.mapzen.com/spelunker/id/85682117)
 9.  [borough](https://github.com/whosonfirst/whosonfirst-placetypes#borough)
   - Examples:
-    -- [Manhattan, New York City](https://whosonfirst.mapzen.com/spelunker/id/421205771)
-    -- [Bronx](https://whosonfirst.mapzen.com/spelunker/id/421205775)
+    1. [Manhattan, New York City](https://whosonfirst.mapzen.com/spelunker/id/421205771)
+    2. [Bronx](https://whosonfirst.mapzen.com/spelunker/id/421205775)
 9.  mid-size city
   - population between 5,000 and 500,000
   - Ties among mid-size cities are broken by preferring those closer to `focus.point` or greater population if not supplied.
   - Examples:
-    -- [Socorro, New Mexico](https://whosonfirst.mapzen.com/spelunker/id/85976677)
-    -- [Strasbourg, France](https://whosonfirst.mapzen.com/spelunker/id/101751113)
+    1. [Socorro, New Mexico](https://whosonfirst.mapzen.com/spelunker/id/85976677)
+    2. [Strasbourg, France](https://whosonfirst.mapzen.com/spelunker/id/101751113)
 10.  [macrocounty](https://github.com/whosonfirst/whosonfirst-placetypes#macrocounty)
   - macrocounty results are ranked below medium cities because they typically contain a city of the same name that users are normally interested in
   - Examples:
-    -- [Perpignan, France](https://whosonfirst.mapzen.com/spelunker/id/404227943)
-    -- [Stuttgart, Germany](https://whosonfirst.mapzen.com/spelunker/id/404227549)
+    1. [Perpignan, France](https://whosonfirst.mapzen.com/spelunker/id/404227943)
+    2. [Stuttgart, Germany](https://whosonfirst.mapzen.com/spelunker/id/404227549)
 11.  county
   - Like macrocounty, counties normally contain a city with the same name
   - Examples:
-    -- [Maui, Hawaii](https://whosonfirst.mapzen.com/spelunker/id/102085577)
-    -- [Nordsachsen, Sachsen, Germany](https://whosonfirst.mapzen.com/spelunker/id/102064235)
+    1. [Maui, Hawaii](https://whosonfirst.mapzen.com/spelunker/id/102085577)
+    2. [Nordsachsen, Sachsen, Germany](https://whosonfirst.mapzen.com/spelunker/id/102064235)
 12.  popular neighbourhood - popularity >= 1000
   - Ties among popular neighbourhoods are broken by preferring those closer to `focus.point` or greater popularity if not supplied.
   - Examples:
-    -- [Chelsea, New York City](https://whosonfirst.mapzen.com/spelunker/id/85810575)
-    -- [Hyde Park](https://whosonfirst.mapzen.com/spelunker/id/85861707)
+    1. [Chelsea, New York City](https://whosonfirst.mapzen.com/spelunker/id/85810575)
+    2. [Hyde Park](https://whosonfirst.mapzen.com/spelunker/id/85861707)
 13.  small city - population < 5,000
   - Ties among small cities are broken by preferring those closer to `focus.point` or greater population if not supplied.
   - Examples:
-    -- [Yoe, Pennsylvania](https://whosonfirst.mapzen.com/spelunker/id/101717281)
-    -- [Großerlach, Germany](https://whosonfirst.mapzen.com/spelunker/id/101760693)
+    1. [Yoe, Pennsylvania](https://whosonfirst.mapzen.com/spelunker/id/101717281)
+    2. [Großerlach, Germany](https://whosonfirst.mapzen.com/spelunker/id/101760693)
 14.  non-popular neighbourhood - popularity < 1,000
   - Ties among non-popular neighbourhoods are broken by preferring those closer to `focus.point` or greater popularity if not supplied.
   - Examples:
-    -- [The Flats, Wilmington, DE](https://whosonfirst.mapzen.com/spelunker/id/85888525)
-    -- [Dagenham Heathway, London, GB](https://whosonfirst.mapzen.com/spelunker/id/85860857)
+    1. [The Flats, Wilmington, DE](https://whosonfirst.mapzen.com/spelunker/id/85888525)
+    2. [Dagenham Heathway, London, GB](https://whosonfirst.mapzen.com/spelunker/id/85860857)
 
 ***Regarding neighbourhoods, Pelias makes no qualitative stance on what the term "popularity" means.***
