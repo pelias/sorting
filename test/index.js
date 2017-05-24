@@ -1,6 +1,7 @@
 const tape = require('tape');
 const _ = require('lodash');
 
+// helper to quickly build results for sorting tests
 const ResultBuilder = function(layer) {
   const result = {
     layer: layer,
@@ -31,6 +32,7 @@ const ResultBuilder = function(layer) {
 
 };
 
+// canned results for later reference
 const mega_locality = new ResultBuilder('locality').population(4000000).build();
 const mega_localadmin = new ResultBuilder('localadmin').population(4000000).build();
 const continent = new ResultBuilder('continent').build();
@@ -87,6 +89,7 @@ tape('equality tests', (test) => {
   test.test('all results should be equal to themselves', (t) => {
     const sorter = require('../index')();
 
+    // iterate over all the canned results and assert that each is equal to itself
     results_in_order.forEach((result) => {
       t.equals(sorter(result, result), 0);
     });
@@ -98,6 +101,12 @@ tape('equality tests', (test) => {
 });
 
 tape('basic ordering', (test) => {
+  // this test ensures that a higher-ranked result is always weighed higher than
+  // a lower-ranked result.  eg:
+  // mega city > country, dependency, large city, medium city, etc
+  // ...
+  // county > popular neighbourhood, small locality, non-popular neighbourhood
+  // ...
   test.test('each result should outrank all results below it', (t) => {
     const sorter = require('../index')();
 
@@ -118,6 +127,7 @@ tape('population tie-breaker layers', (test) => {
   test.test('layers compared should rank by population descending', (t) => {
     const sorter = require('../index')();
 
+    // iterate over all layers that break ties by comparing population values
     [
       'continent',
       'country',
@@ -140,9 +150,11 @@ tape('population tie-breaker layers', (test) => {
 
   });
 
-  test.test('layers compared should rank by population descending, defaulting to 0', (t) => {
+  test.test('population to default to 0 when not explicitly set', (t) => {
     const sorter = require('../index')();
 
+    // iterate over all layers that break ties by comparing population values
+    // treating no population as 0
     [
       'continent',
       'country',
@@ -171,6 +183,8 @@ tape('locality/localadmin', (test) => {
   test.test('locality/localadmin at various sizes w/o focus.point should order by population descending', (t) => {
     const sorter = require('../index')();
 
+    // iterate over the minimum population for each band and ensure that a population+1 result
+    // for both locality and localadmin will rank higher than a result with a lower population
     [0, 5000, 500000, 4000000].forEach((population) => {
       ['locality', 'localadmin'].forEach((layer) => {
         const higher_population_result = new ResultBuilder(layer).population(population+1).build();
@@ -194,6 +208,8 @@ tape('locality/localadmin', (test) => {
 
     const sorter = require('../index')(clean);
 
+    // iterate over minimum non-megacity population bands and ensure that closer distance
+    // to focus.point ranks higher than higher population
     [0, 5000, 500000].forEach((population) => {
       ['locality', 'localadmin'].forEach((layer) => {
         const closer_distance_result = new ResultBuilder(layer).population(population).lat(1).lon(1).build();
@@ -218,6 +234,8 @@ tape('locality/localadmin', (test) => {
 
     const sorter = require('../index')(clean);
 
+    // iterate over minimum non-megacity population bands and ensure that closer distance
+    // to focus.point ranks higher than higher population
     [0, 5000, 500000].forEach((population) => {
       ['locality', 'localadmin'].forEach((layer) => {
         const closer_distance_result = new ResultBuilder(layer).population(population).lat(1).lon(1).build();
@@ -227,7 +245,7 @@ tape('locality/localadmin', (test) => {
         t.ok(sorter(further_distance_result, closer_distance_result) > 0);
 
       });
-      
+
     });
 
     t.end();
@@ -240,6 +258,8 @@ tape('neighbourhood', (test) => {
   test.test('neighbourhoods at popularities w/o focus.point should order by popularity descending', (t) => {
     const sorter = require('../index')();
 
+    // iterate over the minimum popularity for each band and ensure that a popularity+1 result
+    // rank higher than a result with a lower popularity
     [0, 1000].forEach((popularity) => {
       const higher_popularity_result = new ResultBuilder('neighbourhood').popularity(popularity+1).build();
       const lower_popularity_result = new ResultBuilder('neighbourhood').popularity(popularity).build();
@@ -261,6 +281,8 @@ tape('neighbourhood', (test) => {
 
     const sorter = require('../index')(clean);
 
+    // iterate over minimum popularity bands and ensure that closer distance
+    // to focus.point ranks higher than higher popularity
     [0, 1000].forEach((popularity) => {
       const closer_distance_result = new ResultBuilder('neighbourhood').popularity(popularity).lat(1).lon(1).build();
       const further_distance_result = new ResultBuilder('neighbourhood').popularity(popularity+1).lat(2).lon(2).build();
@@ -282,6 +304,8 @@ tape('neighbourhood', (test) => {
 
     const sorter = require('../index')(clean);
 
+    // iterate over minimum popularity bands and ensure that closer distance
+    // to focus.point ranks higher than higher popularity
     [0, 1000].forEach((popularity) => {
       const closer_distance_result = new ResultBuilder('neighbourhood').popularity(popularity).lat(1).lon(1).build();
       const further_distance_result = new ResultBuilder('neighbourhood').lat(2).lon(2).build();
