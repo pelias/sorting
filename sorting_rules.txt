@@ -1,8 +1,0 @@
-sorting rules:
-
-
-
-medium-sized cities:
-
--focus.point: sorted by population descending
-+focus.point: sorted by distance to focus.point
