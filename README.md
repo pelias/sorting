@@ -35,6 +35,8 @@ Without additional information such as state to narrow down this list, Pelias so
 
 ## Ordering Rules
 
+Unless otherwise specified, ties between two results at the same layer are broken using population values with higher population results returned first.  
+
 1.  very large city
   - population > 4,000,000
   - "Paris" should always rank [Paris, France](https://whosonfirst.mapzen.com/spelunker/id/101751119) higher than [Paris, Texas](https://whosonfirst.mapzen.com/spelunker/id/101725293) since people looking for the latter will supply additional qualifiers such as state or country.
@@ -92,6 +94,11 @@ Without additional information such as state to narrow down this list, Pelias so
   - Examples:
     1. [Maui, Hawaii](https://whosonfirst.mapzen.com/spelunker/id/102085577)
     2. [Nordsachsen, Sachsen, Germany](https://whosonfirst.mapzen.com/spelunker/id/102064235)
+12.  [macrohood](https://github.com/whosonfirst/whosonfirst-placetypes#macrohood)
+  - Groups of neighbourhoods
+  - Examples:
+    1. [San Fernando Valley, Los Angeles, CA](https://whosonfirst.mapzen.com/spelunker/id/1108692439/)
+    2. [Suutarila, Helsinki, Finland](https://whosonfirst.mapzen.com/spelunker/id/890537277)
 12.  popular neighbourhood - popularity >= 1000
   - Ties among popular neighbourhoods are broken by preferring those closer to `focus.point` or greater popularity if not supplied.
   - Examples:
