@@ -49,6 +49,7 @@ const medium_locality = new ResultBuilder('locality').population(250000).build()
 const medium_localadmin = new ResultBuilder('localadmin').population(250000).build();
 const small_locality = new ResultBuilder('locality').population(2000).build();
 const small_localadmin = new ResultBuilder('localadmin').population(2000).build();
+const macrohood = new ResultBuilder('macrohood').build();
 const popular_neighbourhood = new ResultBuilder('neighbourhood').popularity(2000).build();
 const non_popular_neighbourhood = new ResultBuilder('neighbourhood').popularity(500).build();
 
@@ -66,6 +67,7 @@ const results_in_order = [
   medium_localadmin,
   macrocounty,
   county,
+  macrohood,
   popular_neighbourhood,
   small_locality,
   small_localadmin,
@@ -136,7 +138,8 @@ tape('population tie-breaker layers', (test) => {
       'region',
       'macrocounty',
       'county',
-      'borough'
+      'borough',
+      'macrohood'
     ].forEach((layer) => {
       const higher_population_result = new ResultBuilder(layer).population(2).build();
       const lower_population_result = new ResultBuilder(layer).population(1).build();
@@ -163,7 +166,8 @@ tape('population tie-breaker layers', (test) => {
       'region',
       'macrocounty',
       'county',
-      'borough'
+      'borough',
+      'macrohood'
     ].forEach((layer) => {
       const higher_population_result = new ResultBuilder(layer).population(1).build();
       const no_population_result = new ResultBuilder(layer).build();

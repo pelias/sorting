@@ -34,6 +34,7 @@ const isCounty = isLayer.bind(null, 'county');
 const isLocality = isLayer.bind(null, 'locality');
 const isLocaladmin = isLayer.bind(null, 'localadmin');
 const isBorough = isLayer.bind(null, 'borough');
+const isMacroHood = isLayer.bind(null, 'macrohood');
 const isNeighbourhood = isLayer.bind(null, 'neighbourhood');
 
 const isMegaLocality = isLayerAndValueInRange.bind(null, isLocality, 'population', populations.mega);
@@ -99,6 +100,7 @@ const resolveRegion = resolveByPopulation.bind(null, isRegion);
 const resolveMacroCounty = resolveByPopulation.bind(null, isMacroCounty);
 const resolveCounty = resolveByPopulation.bind(null, isCounty);
 const resolveBorough = resolveByPopulation.bind(null, isBorough);
+const resolveMacroHood = resolveByPopulation.bind(null, isMacroHood);
 
 const resolveLargeLocality = resolveByFocusPointThenOtherField.bind(null, isLargeLocality, 'population');
 const resolveMediumLocality = resolveByFocusPointThenOtherField.bind(null, isMediumLocality, 'population');
@@ -134,6 +136,7 @@ const fallbacks = [
   { either: isMediumLocaladmin, resolve: resolveMediumLocaladmin },
   { either: isMacroCounty, resolve: resolveMacroCounty },
   { either: isCounty, resolve: resolveCounty },
+  { either: isMacroHood, resolve: resolveMacroHood },
   { either: isPopularNeighbourhood, resolve: resolvePopularNeighbourhood },
   { either: isSmallLocality, resolve: resolveSmallLocality },
   { either: isSmallLocaladmin, resolve: resolveSmallLocaladmin },
