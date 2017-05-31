@@ -11,7 +11,8 @@ const populations = {
 
 // helper object for defining popularity ranges
 const popularities = {
-  popular:    [1000, Infinity],
+  Very_popular: [10000, Infinity],
+  popular:    [1000, 10000],
   nonpopular: [0, 1000]
 };
 
@@ -47,6 +48,7 @@ const isLargeLocaladmin = isLayerAndValueInRange.bind(null, isLocaladmin, 'popul
 const isMediumLocaladmin = isLayerAndValueInRange.bind(null, isLocaladmin, 'population', populations.medium);
 const isSmallLocaladmin = isLayerAndValueInRange.bind(null, isLocaladmin, 'population', populations.small);
 
+const isVeryPopularNeighbourhood = isLayerAndValueInRange.bind(null, isNeighbourhood, 'popularity', popularities.Very_popular);
 const isPopularNeighbourhood = isLayerAndValueInRange.bind(null, isNeighbourhood, 'popularity', popularities.popular);
 const isNonPopularNeighbourhood = isLayerAndValueInRange.bind(null, isNeighbourhood, 'popularity', popularities.nonpopular);
 
@@ -110,6 +112,7 @@ const resolveLargeLocaladmin = resolveByFocusPointThenOtherField.bind(null, isLa
 const resolveMediumLocaladmin = resolveByFocusPointThenOtherField.bind(null, isMediumLocaladmin, 'population');
 const resolveSmallLocaladmin = resolveByFocusPointThenOtherField.bind(null, isSmallLocaladmin, 'population');
 
+const resolveVeryPopularNeighbourhood = resolveByFocusPointThenOtherField.bind(null, isVeryPopularNeighbourhood, 'popularity');
 const resolvePopularNeighbourhood = resolveByFocusPointThenOtherField.bind(null, isPopularNeighbourhood, 'popularity');
 const resolveNonPopularNeighbourhood = resolveByFocusPointThenOtherField.bind(null, isNonPopularNeighbourhood, 'popularity');
 
@@ -132,6 +135,7 @@ const fallbacks = [
   { either: isMacroRegion, resolve: resolveMacroRegion },
   { either: isRegion, resolve: resolveRegion },
   { either: isBorough, resolve: resolveBorough },
+  { either: isVeryPopularNeighbourhood, resolve: resolveVeryPopularNeighbourhood },
   { either: isMediumLocality, resolve: resolveMediumLocality },
   { either: isMediumLocaladmin, resolve: resolveMediumLocaladmin },
   { either: isMacroCounty, resolve: resolveMacroCounty },

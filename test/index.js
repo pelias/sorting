@@ -1,5 +1,4 @@
 const tape = require('tape');
-const _ = require('lodash');
 
 // helper to quickly build results for sorting tests
 const ResultBuilder = function(layer) {
@@ -43,15 +42,16 @@ const region = new ResultBuilder('region').build();
 const macrocounty = new ResultBuilder('macrocounty').build();
 const county = new ResultBuilder('county').build();
 const borough = new ResultBuilder('borough').build();
-const large_locality = new ResultBuilder('locality').population(800000).build();
-const large_localadmin = new ResultBuilder('localadmin').population(800000).build();
-const medium_locality = new ResultBuilder('locality').population(250000).build();
-const medium_localadmin = new ResultBuilder('localadmin').population(250000).build();
-const small_locality = new ResultBuilder('locality').population(2000).build();
-const small_localadmin = new ResultBuilder('localadmin').population(2000).build();
+const large_locality = new ResultBuilder('locality').population(500000).build();
+const large_localadmin = new ResultBuilder('localadmin').population(500000).build();
+const medium_locality = new ResultBuilder('locality').population(5000).build();
+const medium_localadmin = new ResultBuilder('localadmin').population(5000).build();
+const small_locality = new ResultBuilder('locality').population(0).build();
+const small_localadmin = new ResultBuilder('localadmin').population(0).build();
 const macrohood = new ResultBuilder('macrohood').build();
-const popular_neighbourhood = new ResultBuilder('neighbourhood').popularity(2000).build();
-const non_popular_neighbourhood = new ResultBuilder('neighbourhood').popularity(500).build();
+const very_popular_neighbourhood = new ResultBuilder('neighbourhood').popularity(10000).build();
+const popular_neighbourhood = new ResultBuilder('neighbourhood').popularity(1000).build();
+const non_popular_neighbourhood = new ResultBuilder('neighbourhood').popularity(0).build();
 
 const results_in_order = [
   mega_locality,
@@ -63,6 +63,7 @@ const results_in_order = [
   macroregion,
   region,
   borough,
+  very_popular_neighbourhood,
   medium_locality,
   medium_localadmin,
   macrocounty,
@@ -264,7 +265,7 @@ tape('neighbourhood', (test) => {
 
     // iterate over the minimum popularity for each band and ensure that a popularity+1 result
     // rank higher than a result with a lower popularity
-    [0, 1000].forEach((popularity) => {
+    [0, 1000, 10000].forEach((popularity) => {
       const higher_popularity_result = new ResultBuilder('neighbourhood').popularity(popularity+1).build();
       const lower_popularity_result = new ResultBuilder('neighbourhood').popularity(popularity).build();
 
@@ -287,7 +288,7 @@ tape('neighbourhood', (test) => {
 
     // iterate over minimum popularity bands and ensure that closer distance
     // to focus.point ranks higher than higher popularity
-    [0, 1000].forEach((popularity) => {
+    [0, 1000, 10000].forEach((popularity) => {
       const closer_distance_result = new ResultBuilder('neighbourhood').popularity(popularity).lat(1).lon(1).build();
       const further_distance_result = new ResultBuilder('neighbourhood').popularity(popularity+1).lat(2).lon(2).build();
 
@@ -310,7 +311,7 @@ tape('neighbourhood', (test) => {
 
     // iterate over minimum popularity bands and ensure that closer distance
     // to focus.point ranks higher than higher popularity
-    [0, 1000].forEach((popularity) => {
+    [0, 1000, 10000].forEach((popularity) => {
       const closer_distance_result = new ResultBuilder('neighbourhood').popularity(popularity).lat(1).lon(1).build();
       const further_distance_result = new ResultBuilder('neighbourhood').lat(2).lon(2).build();
 
