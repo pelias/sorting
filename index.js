@@ -11,7 +11,7 @@ const populations = {
 
 // helper object for defining popularity ranges
 const popularities = {
-  Very_popular: [10000, Infinity],
+  very_popular: [10000, Infinity],
   popular:    [1000, 10000],
   nonpopular: [0, 1000]
 };
@@ -48,7 +48,7 @@ const isLargeLocaladmin = isLayerAndValueInRange.bind(null, isLocaladmin, 'popul
 const isMediumLocaladmin = isLayerAndValueInRange.bind(null, isLocaladmin, 'population', populations.medium);
 const isSmallLocaladmin = isLayerAndValueInRange.bind(null, isLocaladmin, 'population', populations.small);
 
-const isVeryPopularNeighbourhood = isLayerAndValueInRange.bind(null, isNeighbourhood, 'popularity', popularities.Very_popular);
+const isVeryPopularNeighbourhood = isLayerAndValueInRange.bind(null, isNeighbourhood, 'popularity', popularities.very_popular);
 const isPopularNeighbourhood = isLayerAndValueInRange.bind(null, isNeighbourhood, 'popularity', popularities.popular);
 const isNonPopularNeighbourhood = isLayerAndValueInRange.bind(null, isNeighbourhood, 'popularity', popularities.nonpopular);
 
