@@ -2,7 +2,7 @@
   "name": "pelias-sorting",
   "description": "Utility module that sorts Pelias results",
   "main": "index.js",
-  "version": "0.0.0-semantic-release",
+  "version": "1.0.0",
   "scripts": {
     "test": "node test/index | tap-dot",
     "lint": "jshint .",
