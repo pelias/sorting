@@ -28,7 +28,7 @@
     "jshint": "^2.8.0",
     "npm-check": "^5.4.4",
     "precommit-hook": "^3.0.0",
-    "semantic-release": "^6.3.6",
+    "semantic-release": "^8.2.0",
     "tap-dot": "^1.0.5",
     "tape": "^4.6.2"
   },
