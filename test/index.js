@@ -74,8 +74,8 @@ const results_in_order = [
   macrocounty,
   county,
   macrohood,
-  popular_neighbourhood,
   venue,
+  popular_neighbourhood,
   small_locality,
   small_localadmin,
   non_popular_neighbourhood
