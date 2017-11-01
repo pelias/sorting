@@ -37,6 +37,7 @@ const isLocaladmin = isLayer.bind(null, 'localadmin');
 const isBorough = isLayer.bind(null, 'borough');
 const isMacroHood = isLayer.bind(null, 'macrohood');
 const isNeighbourhood = isLayer.bind(null, 'neighbourhood');
+const isVenue = isLayer.bind(null, 'venue');
 
 const isMegaLocality = isLayerAndValueInRange.bind(null, isLocality, 'population', populations.mega);
 const isLargeLocality = isLayerAndValueInRange.bind(null, isLocality, 'population', populations.large);
@@ -92,6 +93,18 @@ function resolveByFocusPointThenOtherField(isLayer, field, result1, result2, foc
 
 }
 
+function resolveByScore(isLayer, result1, result2) {
+  if ([result1, result2].every(isLayer)) {
+    // sort on score
+    return result2._score - result1._score;
+
+  }
+
+  // return the one that is the requested layer
+  return isLayer(result1) ? -1 : 1;
+
+}
+
 const resolveMegaLocality = resolveByPopulation.bind(null, isMegaLocality);
 const resolveMegaLocaladmin = resolveByPopulation.bind(null, isMegaLocaladmin);
 const resolveContinent = resolveByPopulation.bind(null, isContinent);
@@ -115,6 +128,8 @@ const resolveSmallLocaladmin = resolveByFocusPointThenOtherField.bind(null, isSm
 const resolveVeryPopularNeighbourhood = resolveByFocusPointThenOtherField.bind(null, isVeryPopularNeighbourhood, 'popularity');
 const resolvePopularNeighbourhood = resolveByFocusPointThenOtherField.bind(null, isPopularNeighbourhood, 'popularity');
 const resolveNonPopularNeighbourhood = resolveByFocusPointThenOtherField.bind(null, isNonPopularNeighbourhood, 'popularity');
+
+const resolveVenue = resolveByScore.bind(null, isVenue);
 
 // return a lat/lon object if both fields have value
 function parse_lat_lon(obj, lat_field, lon_field) {
@@ -141,6 +156,7 @@ const fallbacks = [
   { either: isMacroCounty, resolve: resolveMacroCounty },
   { either: isCounty, resolve: resolveCounty },
   { either: isMacroHood, resolve: resolveMacroHood },
+  { either: isVenue, resolve: resolveVenue },
   { either: isPopularNeighbourhood, resolve: resolvePopularNeighbourhood },
   { either: isSmallLocality, resolve: resolveSmallLocality },
   { either: isSmallLocaladmin, resolve: resolveSmallLocaladmin },

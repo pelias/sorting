@@ -16,6 +16,10 @@ const ResultBuilder = function(layer) {
       result.popularity = popularity;
       return this;
     },
+    score: function(score) {
+      result._score = score;
+      return this;
+    },
     lon: function(lon) {
       result.center_point.lon = lon;
       return this;
@@ -52,6 +56,7 @@ const macrohood = new ResultBuilder('macrohood').build();
 const very_popular_neighbourhood = new ResultBuilder('neighbourhood').popularity(10000).build();
 const popular_neighbourhood = new ResultBuilder('neighbourhood').popularity(1000).build();
 const non_popular_neighbourhood = new ResultBuilder('neighbourhood').popularity(0).build();
+const venue = new ResultBuilder('venue').score(0.17).build();
 
 const results_in_order = [
   mega_locality,
@@ -69,6 +74,7 @@ const results_in_order = [
   macrocounty,
   county,
   macrohood,
+  venue,
   popular_neighbourhood,
   small_locality,
   small_localadmin,
@@ -320,6 +326,18 @@ tape('neighbourhood', (test) => {
 
     });
 
+    t.end();
+
+  });
+
+  test.test('venues should be sorted by score', t => {
+    const sorter = require('../index')({});
+
+    const higher_score_result = new ResultBuilder('venue').score(0.17).build();
+    const lower_score_result = new ResultBuilder('venue').score(0.16).build();
+
+    t.ok(sorter(higher_score_result, lower_score_result) < 0);
+    t.ok(sorter(lower_score_result, higher_score_result) > 0);
     t.end();
 
   });
