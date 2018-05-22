@@ -6,15 +6,13 @@
   "scripts": {
     "test": "node test/index | tap-dot",
     "lint": "jshint .",
-    "travis": "npm run check-dependencies && npm test",
-    "semantic-release": "semantic-release pre && npm publish && semantic-release post",
-    "validate": "npm ls",
-    "check-dependencies": "node_modules/.bin/npm-check --production"
+    "travis": "npm test",
+    "validate": "npm ls"
   },
-  "author": "Mapzen",
+  "author": "Pelias",
   "license": "MIT",
   "engines": {
-    "node": ">=4.0.0"
+    "node": ">=6.0.0"
   },
   "repository": {
     "type": "git",
@@ -26,7 +24,6 @@
   },
   "devDependencies": {
     "jshint": "^2.8.0",
-    "npm-check": "^5.4.4",
     "precommit-hook": "^3.0.0",
     "semantic-release": "^15.1.8",
     "tap-dot": "^1.0.5",
@@ -35,7 +32,9 @@
   "pre-commit": [
     "lint",
     "validate",
-    "test",
-    "check-dependencies"
-  ]
+    "test"
+  ],
+  "release": {
+    "success": []
+  }
 }
