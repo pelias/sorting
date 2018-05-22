@@ -11,7 +11,7 @@
     "validate": "npm ls",
     "check-dependencies": "node_modules/.bin/npm-check --production"
   },
-  "author": "Mapzen",
+  "author": "Pelias",
   "license": "MIT",
   "engines": {
     "node": ">=6.0.0"
