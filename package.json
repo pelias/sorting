@@ -25,7 +25,6 @@
   "devDependencies": {
     "jshint": "^2.8.0",
     "precommit-hook": "^3.0.0",
-    "semantic-release": "^15.1.8",
     "tap-dot": "^2.0.0",
     "tape": "^4.6.2"
   },
