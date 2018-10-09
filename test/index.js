@@ -342,4 +342,21 @@ tape('neighbourhood', (test) => {
 
   });
 
+  test.test('custom layers should be sorted by score', t => {
+    const sorter = require('../index')({});
+
+    const result_one = new ResultBuilder('stops').score(27.178297).build();
+    const result_two = new ResultBuilder('stops').score(1.4754213).build();
+    const result_three = new ResultBuilder('stops').score(1.4754213).build();
+
+    t.equals(sorter(result_one, result_two), -1);
+    t.equals(sorter(result_two, result_one), +1);
+    t.equals(sorter(result_two, result_three), -1);
+    t.equals(sorter(result_three, result_two), -1);
+    t.equals(sorter(result_one, result_three), -1);
+    t.equals(sorter(result_three, result_one), +1);
+    t.end();
+
+  });
+
 });

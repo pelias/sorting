@@ -161,8 +161,12 @@ const fallbacks = [
   { either: isSmallLocality, resolve: resolveSmallLocality },
   { either: isSmallLocaladmin, resolve: resolveSmallLocaladmin },
   { either: isNonPopularNeighbourhood, resolve: resolveNonPopularNeighbourhood },
-  // the 'else' case, always returns true
-  { either: _.constant(true), resolve: (result1, result2) => { return result1 < result2; } }
+  // the 'else' case, always sort by score, avoiding returning 0 because js sort is unstable
+  { either: _.constant(true), resolve: (result1, result2) => {
+    if( isNaN( result1._score ) || isNaN( result2._score ) ){ return -1; }
+    if( result1._score === result2._score ){ return -1; }
+    return result1._score > result2._score ? -1 : 1;
+  }}
 ];
 
 module.exports = (clean) => {
