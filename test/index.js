@@ -91,6 +91,7 @@ tape('interface test', (test) => {
     t.equal(sorter().length, 2, 'should take 2 parameters');
     t.end();
   });
+  test.end();
 
 });
 
@@ -106,6 +107,7 @@ tape('equality tests', (test) => {
     t.end();
 
   });
+  test.end();
 
 });
 
@@ -129,6 +131,7 @@ tape('basic ordering', (test) => {
 
     t.end();
   });
+  test.end();
 
 });
 
@@ -187,6 +190,7 @@ tape('population tie-breaker layers', (test) => {
     t.end();
 
   });
+  test.end();
 
 });
 
@@ -262,6 +266,7 @@ tape('locality/localadmin', (test) => {
     t.end();
 
   });
+  test.end();
 
 });
 
@@ -358,5 +363,6 @@ tape('neighbourhood', (test) => {
     t.end();
 
   });
+  test.end();
 
 });
