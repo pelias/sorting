@@ -23,7 +23,7 @@
     "lodash": "^4.17.4"
   },
   "devDependencies": {
-    "jshint": "^2.8.0",
+    "jshint": "^2.10.2",
     "precommit-hook": "^3.0.0",
     "tap-dot": "^2.0.0",
     "tape": "^4.6.2"
