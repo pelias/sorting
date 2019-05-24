@@ -19,7 +19,7 @@
     "url": "https://github.com/pelias/sorting.git"
   },
   "dependencies": {
-    "geolib": "^2.0.22",
+    "geolib": "^3.0.0",
     "lodash": "^4.17.4"
   },
   "devDependencies": {
