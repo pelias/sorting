@@ -84,7 +84,8 @@ function resolveByFocusPointThenOtherField(isLayer, field, result1, result2, foc
     }
 
     // no focus point, so on another field (currently only population or popularity)
-    return result2[field] - result1[field];
+    // note: (undefined-undefined==NaN) which is not an acceptable comparitor value
+    return _.defaultTo(result2[field], 0) - _.defaultTo(result1[field], 0);
 
   }
 
