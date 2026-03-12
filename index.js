@@ -72,8 +72,9 @@ function mismatchPenalty(clean, result) {
   }
 
   let penalty = 0;
+  const layer = result.layer;
 
-  if (result.layer === 'address') {
+  if (layer === 'address' || layer === 'street') {
     const queryPostalcode = normalizeText(parsedText.postalcode);
     const resultPostalcode = normalizeText(_.get(result, 'address_parts.zip'));
 
