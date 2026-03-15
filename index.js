@@ -79,7 +79,15 @@ function mismatchPenalty(clean, result) {
     const resultPostalcode = normalizeText(_.get(result, 'address_parts.zip'));
 
     if (queryPostalcode && resultPostalcode && queryPostalcode !== resultPostalcode) {
-      penalty += 35;
+      // If PLZ regions differ (first 2 digits), result is in a completely different
+      // part of the country — apply a very heavy penalty to push it below local matches.
+      // Same-region mismatches (e.g. 88212 vs 88214 in Ravensburg) get a mild penalty.
+      if (queryPostalcode.length >= 2 && resultPostalcode.length >= 2 &&
+          queryPostalcode.substring(0, 2) !== resultPostalcode.substring(0, 2)) {
+        penalty += 10000;
+      } else {
+        penalty += 35;
+      }
     }
 
     const queryCity = normalizeText(parsedText.city || parsedText.locality);
@@ -91,7 +99,47 @@ function mismatchPenalty(clean, result) {
     }
   }
 
+  // Venue layer: penalize locality mismatch (venues typically lack postalcode data)
+  if (layer === 'venue') {
+    const queryCity = normalizeText(parsedText.city || parsedText.locality);
+    const resultLocality = normalizeText(getFirstParentValue(result, 'locality'));
+    const resultLocaladmin = normalizeText(getFirstParentValue(result, 'localadmin'));
+
+    if (queryCity && resultLocality && queryCity !== resultLocality && queryCity !== resultLocaladmin) {
+      penalty += 10000;
+    }
+  }
+
   return penalty;
+}
+
+// Check if a result's PLZ matches the query PLZ
+function plzMatches(clean, result) {
+  const parsedText = _.get(clean, 'parsed_text', {});
+  const queryPlz = normalizeText(_.get(parsedText, 'postalcode'));
+  if (!queryPlz) {
+    return null;
+  }
+  const resultPlz = normalizeText(_.get(result, 'address_parts.zip'));
+  if (!resultPlz) {
+    return null;
+  }
+  return queryPlz === resultPlz;
+}
+
+// Check if the result city matches the query city
+function cityMatches(clean, result) {
+  const parsedText = _.get(clean, 'parsed_text', {});
+  const queryCity = normalizeText(parsedText.city || parsedText.locality);
+  if (!queryCity) {
+    return null;
+  }
+  const resultLocality = normalizeText(getFirstParentValue(result, 'locality'));
+  const resultLocaladmin = normalizeText(getFirstParentValue(result, 'localadmin'));
+  if (!resultLocality) {
+    return null;
+  }
+  return queryCity === resultLocality || queryCity === resultLocaladmin;
 }
 
 function adjustedScore(clean, result) {
@@ -204,6 +252,15 @@ module.exports = (clean) => {
         }
 
         if (score1 === score2) {
+          // Tiebreaker: prefer city match when scores are equal
+          const city1 = cityMatches(clean, result1);
+          const city2 = cityMatches(clean, result2);
+          if (city1 === true && city2 === false) {
+            return -1;
+          }
+          if (city2 === true && city1 === false) {
+            return 1;
+          }
           return -1;
         }
 
