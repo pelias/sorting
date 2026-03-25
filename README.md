@@ -24,7 +24,6 @@ We think open data, open source, and open strategy win over proprietary solution
 
 # Pelias Result Sorting
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/pelias/sorting.svg)](https://greenkeeper.io/)
 
 [![Gitter Chat](https://badges.gitter.im/pelias/pelias.svg)](https://gitter.im/pelias/pelias?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
